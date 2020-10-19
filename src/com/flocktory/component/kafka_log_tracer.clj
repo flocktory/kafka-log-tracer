@@ -26,6 +26,16 @@
     [this group-id failed-ago]
     (log/errorf "[%s] consumer failed %s ms ago" group-id failed-ago))
 
+  tracer/IOnConsumerFailFast
+  (on-consumer-fail-fast
+    [this group-id opts]
+    (log/errorf "[%s] consumer failed. Hard shutdown..." group-id))
+
+  tracer/IOnConsumerIncError
+  (on-consumer-inc-error
+    [this group-id opts error]
+    (log/errorf "[%s] consumer failed. Error: %s" group-id (.getMessage error)))
+
   tracer/IBeforePoll
   (before-poll
     [this group-id]
